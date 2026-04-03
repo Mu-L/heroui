@@ -31,9 +31,16 @@ jobs:
       - name: Build packages
         run: pnpm build
 
+      - name: Determine previous tag
+        id: prev-tag
+        run: |
+          PREV=$(git tag -l 'v*' --sort=-v:refname | grep -v "$(git describe --tags --exact-match 2>/dev/null || echo '')" | head -1)
+          echo "tag=${PREV:-}" >> $GITHUB_OUTPUT
+          echo "Previous tag: ${PREV:-none}"
+
       - name: Create GitHub Release
         if: ${{ !inputs.dry_run }}
-        run: npx changelogithub
+        run: npx changelogithub --from ${{ steps.prev-tag.outputs.tag }}
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         continue-on-error: true
