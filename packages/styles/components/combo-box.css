@@ -13,10 +13,6 @@
     @apply w-fit;
   }
 
-  [data-slot="description"] {
-    @apply px-1;
-  }
-
   [data-slot="input"] {
     @apply min-w-0 flex-1;
 
