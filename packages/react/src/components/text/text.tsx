@@ -26,8 +26,10 @@ const defaultElementByType: Record<TextType, string> = {
   h6: "h6",
 };
 
-interface TextRootProps
-  extends Omit<ComponentPropsWithRef<typeof TextPrimitive>, "className" | "elementType"> {
+interface TextRootProps extends Omit<
+  ComponentPropsWithRef<typeof TextPrimitive>,
+  "className" | "elementType"
+> {
   align?: TextAlign;
   children?: ReactNode;
   className?: string;
