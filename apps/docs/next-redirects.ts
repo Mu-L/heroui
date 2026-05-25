@@ -80,6 +80,36 @@ export async function getRedirects(): Promise<Redirect[]> {
     source: "/theme",
   });
 
+  // Blog moved under [lang] for i18n. Redirect legacy /blog and /blog/<slug>
+  // to the default-locale URL so old links keep working.
+  redirects.push(
+    {
+      destination: "/en/blog",
+      permanent: true,
+      source: "/blog",
+    },
+    {
+      destination: "/en/blog/:slug",
+      permanent: true,
+      source: "/blog/:slug",
+    },
+  );
+
+  // Showcase moved under [lang] for i18n. Redirect legacy /showcase and
+  // /showcase/<id> to the default-locale URL so old links keep working.
+  redirects.push(
+    {
+      destination: "/en/showcase",
+      permanent: true,
+      source: "/showcase",
+    },
+    {
+      destination: "/en/showcase/:id",
+      permanent: true,
+      source: "/showcase/:id",
+    },
+  );
+
   // Framework root redirects - redirect /react, /web, and /native to their respective docs
   redirects.push(
     {
@@ -106,11 +136,27 @@ export async function getRedirects(): Promise<Redirect[]> {
     source: "/docs",
   });
 
+  // Locale-prefixed root redirect (i18n)
+  // Without these, /en/docs and /cn/docs hit the catch-all route with no slug
+  // and 404 because there is no content/docs/{locale}/index.mdx.
+  redirects.push({
+    destination: "/:lang/docs/react/getting-started",
+    permanent: true,
+    source: "/:lang(en|cn)/docs",
+  });
+
   // Redirect /docs/getting-started to /docs/react/getting-started
   redirects.push({
     destination: "/docs/react/getting-started",
     permanent: true,
     source: "/docs/getting-started",
+  });
+
+  // Locale-prefixed equivalent
+  redirects.push({
+    destination: "/:lang/docs/react/getting-started",
+    permanent: true,
+    source: "/:lang(en|cn)/docs/getting-started",
   });
 
   // Getting Started pages - now includes (overview), (handbook), and (ui-for-agents) route groups
