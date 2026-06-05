@@ -16,6 +16,9 @@ import {I18nProvider, useLocale} from "react-aria-components/I18nProvider";
 import {Button} from "../button";
 import {ButtonGroup} from "../button-group";
 import {Description} from "../description";
+import {Label} from "../label";
+import {ListBox} from "../list-box";
+import {Select} from "../select";
 
 import {Calendar} from "./index";
 
@@ -477,11 +480,11 @@ export const MultipleMonths: Story = {
       className="@container-normal w-auto overflow-x-auto"
       visibleDuration={{months: 2}}
     >
-      <div className="flex gap-8">
+      <div className="flex w-max gap-8">
         <div className="w-64">
           <Calendar.Header>
             <Calendar.NavButton slot="previous" />
-            <Calendar.Heading />
+            <Calendar.Heading className="flex-none" />
             <div className="size-6" />
           </Calendar.Header>
           <Calendar.Grid>
@@ -494,7 +497,7 @@ export const MultipleMonths: Story = {
         <div className="w-64">
           <Calendar.Header>
             <div className="size-6" />
-            <Calendar.Heading offset={{months: 1}} />
+            <Calendar.Heading className="flex-none" offset={{months: 1}} />
             <Calendar.NavButton slot="next" />
           </Calendar.Header>
           <Calendar.Grid offset={{months: 1}}>
@@ -509,31 +512,49 @@ export const MultipleMonths: Story = {
   ),
 };
 
-const DAY_VIEW_DURATIONS = [1, 3, 5, 7, 8, 14, 21] as const;
+const dayViewOptions = [
+  {id: "1", name: "1 day"},
+  {id: "3", name: "3 days"},
+  {id: "5", name: "5 days"},
+  {id: "7", name: "7 days"},
+  {id: "8", name: "8 days"},
+  {id: "10", name: "10 days"},
+  {id: "14", name: "14 days"},
+  {id: "21", name: "21 days"},
+] as const;
 
 export const DayView: Story = {
   render: (args) => {
-    const [days, setDays] = useState<(typeof DAY_VIEW_DURATIONS)[number]>(3);
-    const now = today(getLocalTimeZone());
+    const [days, setDays] = useState(3);
 
     return (
-      <div className="flex flex-col items-center gap-4">
-        <ButtonGroup className="max-w-full flex-wrap justify-center" variant="tertiary">
-          {DAY_VIEW_DURATIONS.map((duration) => (
-            <Button
-              key={duration}
-              size="sm"
-              variant={days === duration ? "primary" : "tertiary"}
-              onPress={() => setDays(duration)}
-            >
-              {duration}d
-            </Button>
-          ))}
-        </ButtonGroup>
-        <Calendar {...args} aria-label="Day view" defaultValue={now} visibleDuration={{days}}>
+      <div className="flex flex-col items-center gap-6">
+        <Select
+          className="w-40"
+          value={String(days)}
+          onChange={(value) => value && setDays(Number(value))}
+        >
+          <Label>Visible days</Label>
+          <Select.Trigger>
+            <Select.Value />
+            <Select.Indicator />
+          </Select.Trigger>
+          <Select.Popover>
+            <ListBox>
+              {dayViewOptions.map((option) => (
+                <ListBox.Item key={option.id} id={option.id} textValue={option.name}>
+                  {option.name}
+                  <ListBox.ItemIndicator />
+                </ListBox.Item>
+              ))}
+            </ListBox>
+          </Select.Popover>
+        </Select>
+
+        <Calendar {...args} aria-label="Day view" visibleDuration={{days}}>
           <Calendar.Header>
-            <Calendar.NavButton slot="previous" />
             <Calendar.Heading />
+            <Calendar.NavButton slot="previous" />
             <Calendar.NavButton slot="next" />
           </Calendar.Header>
           <Calendar.Grid>
@@ -543,47 +564,53 @@ export const DayView: Story = {
             <Calendar.GridBody>{(date) => <Calendar.Cell date={date} />}</Calendar.GridBody>
           </Calendar.Grid>
         </Calendar>
-        <Description className="text-center">
-          Showing {days} day{days === 1 ? "" : "s"} per page. Use prev/next to navigate.
-        </Description>
       </div>
     );
   },
 };
 
-const WEEK_VIEW_DURATIONS = [1, 2, 3, 4, 5, 6, 8] as const;
+const weekViewOptions = [
+  {id: "1", name: "1 week"},
+  {id: "2", name: "2 weeks"},
+  {id: "3", name: "3 weeks"},
+  {id: "4", name: "4 weeks"},
+  {id: "5", name: "5 weeks"},
+  {id: "6", name: "6 weeks"},
+  {id: "8", name: "8 weeks"},
+] as const;
 
 export const WeekView: Story = {
   render: (args) => {
-    const [weeks, setWeeks] = useState<(typeof WEEK_VIEW_DURATIONS)[number]>(2);
-    const {locale} = useLocale();
-    const now = today(getLocalTimeZone());
-    const weekStart = startOfWeek(now, locale);
+    const [weeks, setWeeks] = useState(1);
 
     return (
-      <div className="flex flex-col items-center gap-4">
-        <ButtonGroup className="max-w-full flex-wrap justify-center" variant="tertiary">
-          {WEEK_VIEW_DURATIONS.map((duration) => (
-            <Button
-              key={duration}
-              size="sm"
-              variant={weeks === duration ? "primary" : "tertiary"}
-              onPress={() => setWeeks(duration)}
-            >
-              {duration}w
-            </Button>
-          ))}
-        </ButtonGroup>
-        <Calendar
-          key={weeks}
-          {...args}
-          aria-label="Week view"
-          defaultValue={weekStart}
-          visibleDuration={{weeks}}
+      <div className="flex flex-col items-center gap-6">
+        <Select
+          className="w-40"
+          value={String(weeks)}
+          onChange={(value) => value && setWeeks(Number(value))}
         >
+          <Label>Visible weeks</Label>
+          <Select.Trigger>
+            <Select.Value />
+            <Select.Indicator />
+          </Select.Trigger>
+          <Select.Popover>
+            <ListBox>
+              {weekViewOptions.map((option) => (
+                <ListBox.Item key={option.id} id={option.id} textValue={option.name}>
+                  {option.name}
+                  <ListBox.ItemIndicator />
+                </ListBox.Item>
+              ))}
+            </ListBox>
+          </Select.Popover>
+        </Select>
+
+        <Calendar {...args} aria-label="Week view" visibleDuration={{weeks}}>
           <Calendar.Header>
-            <Calendar.NavButton slot="previous" />
             <Calendar.Heading />
+            <Calendar.NavButton slot="previous" />
             <Calendar.NavButton slot="next" />
           </Calendar.Header>
           <Calendar.Grid>
@@ -593,9 +620,6 @@ export const WeekView: Story = {
             <Calendar.GridBody>{(date) => <Calendar.Cell date={date} />}</Calendar.GridBody>
           </Calendar.Grid>
         </Calendar>
-        <Description className="text-center">
-          Showing {weeks} week{weeks === 1 ? "" : "s"} per page. Use prev/next to navigate.
-        </Description>
       </div>
     );
   },
