@@ -5,7 +5,6 @@ import {useState} from "react";
 
 const dayOptions = [
   {id: "1", name: "1 day"},
-  {id: "3", name: "3 days"},
   {id: "5", name: "5 days"},
   {id: "7", name: "7 days"},
   {id: "8", name: "8 days"},
@@ -15,7 +14,7 @@ const dayOptions = [
 ] as const;
 
 export function DayView() {
-  const [days, setDays] = useState(3);
+  const [days, setDays] = useState(5);
 
   return (
     <div className="flex flex-col items-center gap-6">

@@ -6,10 +6,10 @@ export function MultipleMonths() {
   return (
     <RangeCalendar
       aria-label="Trip dates"
-      className="@container-normal w-auto overflow-x-auto"
+      className="@container-normal w-full max-w-none overflow-x-auto"
       visibleDuration={{months: 2}}
     >
-      <div className="flex w-max gap-8">
+      <div className="mx-auto flex w-max gap-8">
         <div className="w-64">
           <RangeCalendar.Header>
             <RangeCalendar.NavButton slot="previous" />

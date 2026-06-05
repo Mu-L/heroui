@@ -6,7 +6,7 @@ import {Calendar, Description} from "@heroui/react";
 import {useState} from "react";
 
 export function MultipleSelection() {
-  const [value, setValue] = useState<DateValue[] | null>([]);
+  const [value, setValue] = useState<readonly DateValue[]>([]);
 
   return (
     <div className="flex flex-col items-center gap-4">

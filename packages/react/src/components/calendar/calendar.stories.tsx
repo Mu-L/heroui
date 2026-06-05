@@ -267,7 +267,7 @@ export const WeeksInMonth: Story = {
 
 export const MultipleSelection: Story = {
   render: (args) => {
-    const [value, setValue] = useState<DateValue[] | null>([]);
+    const [value, setValue] = useState<readonly DateValue[]>([]);
 
     return (
       <div className="flex flex-col items-center gap-4">
@@ -477,10 +477,10 @@ export const MultipleMonths: Story = {
     <Calendar
       {...args}
       aria-label="Trip dates"
-      className="@container-normal w-auto overflow-x-auto"
+      className="@container-normal w-full max-w-none overflow-x-auto"
       visibleDuration={{months: 2}}
     >
-      <div className="flex w-max gap-8">
+      <div className="mx-auto flex w-max gap-8">
         <div className="w-64">
           <Calendar.Header>
             <Calendar.NavButton slot="previous" />
@@ -514,7 +514,6 @@ export const MultipleMonths: Story = {
 
 const dayViewOptions = [
   {id: "1", name: "1 day"},
-  {id: "3", name: "3 days"},
   {id: "5", name: "5 days"},
   {id: "7", name: "7 days"},
   {id: "8", name: "8 days"},
@@ -525,7 +524,7 @@ const dayViewOptions = [
 
 export const DayView: Story = {
   render: (args) => {
-    const [days, setDays] = useState(3);
+    const [days, setDays] = useState(5);
 
     return (
       <div className="flex flex-col items-center gap-6">

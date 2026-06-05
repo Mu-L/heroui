@@ -4,7 +4,11 @@ import type {DOMRenderProps} from "../../utils/dom";
 import type {CalendarVariants} from "@heroui/styles";
 import type {CalendarIdentifier} from "@internationalized/date";
 import type {ComponentPropsWithRef, ReactNode} from "react";
-import type {DateValue} from "react-aria-components/Calendar";
+import type {
+  CalendarSelectionMode,
+  DateValue,
+  CalendarProps as RACCalendarProps,
+} from "react-aria-components/Calendar";
 
 import {calendarVariants} from "@heroui/styles";
 import {CalendarDate, DateFormatter, createCalendar} from "@internationalized/date";
@@ -53,14 +57,17 @@ const CalendarContext = createContext<CalendarContext>({});
 /* -------------------------------------------------------------------------------------------------
 | * Calendar Root
 | * -----------------------------------------------------------------------------------------------*/
-interface CalendarRootProps<T extends DateValue = DateValue>
-  extends ComponentPropsWithRef<typeof CalendarPrimitive<T>>, CalendarVariants {
+interface CalendarRootProps<
+  T extends DateValue = DateValue,
+  M extends CalendarSelectionMode = "single",
+>
+  extends RACCalendarProps<T, M>, CalendarVariants {
   isYearPickerOpen?: boolean;
   onYearPickerOpenChange?: (isYearPickerOpen: boolean) => void;
   defaultYearPickerOpen?: boolean;
 }
 
-function CalendarRoot<T extends DateValue = DateValue>({
+function CalendarRoot<T extends DateValue = DateValue, M extends CalendarSelectionMode = "single">({
   children,
   className,
   defaultYearPickerOpen: defaultYearPickerOpenProp = false,
@@ -71,7 +78,7 @@ function CalendarRoot<T extends DateValue = DateValue>({
   onYearPickerOpenChange: onYearPickerOpenChangeProp,
   visibleDuration,
   ...rest
-}: CalendarRootProps<T>) {
+}: CalendarRootProps<T, M>) {
   const isWeekView = visibleDuration?.weeks != null;
   const isDayView = visibleDuration?.days != null;
   const visibleDays = visibleDuration?.days;
