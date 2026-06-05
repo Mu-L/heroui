@@ -102,7 +102,7 @@ You can customize `Calendar.Cell` children and use `Calendar.CellIndicator` to d
 
 ### Multiple Months
 
-Render multiple grids with `visibleDuration` and `offset` for booking and planning experiences.
+Render multiple grids with `visibleDuration` and `offset` for booking and planning experiences. Use `Calendar.Heading` with an `offset` (for example, `offset={{ months: 1 }}`) in each column header to label that month.
 
 <ComponentPreview name="calendar-multiple-months" />
 
@@ -245,7 +245,7 @@ Calendar inherits all props from React Aria [Calendar](https://react-spectrum.ad
 | Component | Description |
 |-----------|-------------|
 | `Calendar.Header` | Header container for navigation and heading. |
-| `Calendar.Heading` | Current month/year heading. |
+| `Calendar.Heading` | Formatted heading for the visible range. Supports `offset` (for multi-month layouts) and `format` (month/year/day options). |
 | `Calendar.NavButton` | Previous/next navigation control (`slot=\"previous\"` or `slot=\"next\"`). |
 | `Calendar.Grid` | Day grid for one month (`offset` supported for multi-month layouts). |
 | `Calendar.GridHeader` | Weekday header container. |

@@ -17,9 +17,9 @@ import {
   CalendarGridHeader as CalendarGridHeaderPrimitive,
   CalendarGrid as CalendarGridPrimitive,
   CalendarHeaderCell as CalendarHeaderCellPrimitive,
+  CalendarHeading as CalendarHeadingPrimitive,
   Calendar as CalendarPrimitive,
   CalendarStateContext,
-  Heading as HeadingPrimitive,
 } from "react-aria-components/Calendar";
 import {useLocale} from "react-aria-components/I18nProvider";
 
@@ -168,13 +168,13 @@ CalendarHeader.displayName = "HeroUI.Calendar.Header";
 /* -------------------------------------------------------------------------------------------------
 | * Calendar Heading
 | * -----------------------------------------------------------------------------------------------*/
-interface CalendarHeadingProps extends ComponentPropsWithRef<typeof HeadingPrimitive> {}
+interface CalendarHeadingProps extends ComponentPropsWithRef<typeof CalendarHeadingPrimitive> {}
 
 const CalendarHeading = ({className, ...props}: CalendarHeadingProps) => {
   const {slots} = useContext(CalendarContext);
 
   return (
-    <HeadingPrimitive
+    <CalendarHeadingPrimitive
       data-slot="calendar-heading"
       {...props}
       className={composeSlotClassName(slots?.heading, className)}

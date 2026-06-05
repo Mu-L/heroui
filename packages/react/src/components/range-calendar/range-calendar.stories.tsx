@@ -12,7 +12,6 @@ import {
 } from "@internationalized/date";
 import React, {useState} from "react";
 import {I18nProvider, useLocale} from "react-aria-components/I18nProvider";
-import {RangeCalendarStateContext} from "react-aria-components/RangeCalendar";
 
 import {Button} from "../button";
 import {ButtonGroup} from "../button-group";
@@ -104,23 +103,6 @@ const RangeCalendarTemplateWithYearPicker = (
     </RangeCalendar.YearPickerGrid>
   </RangeCalendar>
 );
-
-/* -------------------------------------------------------------------------------------------------
- * Helper component to render individual month heading for multi-month calendars
- * -----------------------------------------------------------------------------------------------*/
-const RangeCalendarMonthHeading = ({offset = 0}: {offset?: number}) => {
-  const state = React.useContext(RangeCalendarStateContext)!;
-  const {locale} = useLocale();
-
-  const startDate = state.visibleRange.start;
-  const monthDate = startDate.add({months: offset});
-  const dateObj = monthDate.toDate(getLocalTimeZone());
-  const monthYear = new Intl.DateTimeFormat(locale, {month: "long", year: "numeric"}).format(
-    dateObj,
-  );
-
-  return <span className="text-sm font-medium">{monthYear}</span>;
-};
 
 /* -------------------------------------------------------------------------------------------------
  * Stories
@@ -513,12 +495,11 @@ export const MultipleMonths: Story = {
       className="@container-normal w-auto overflow-x-auto"
       visibleDuration={{months: 2}}
     >
-      <RangeCalendar.Heading className="sr-only" />
       <div className="flex w-max gap-8">
         <div className="w-64">
           <RangeCalendar.Header>
             <RangeCalendar.NavButton slot="previous" />
-            <RangeCalendarMonthHeading offset={0} />
+            <RangeCalendar.Heading />
             <div className="size-6" />
           </RangeCalendar.Header>
           <RangeCalendar.Grid>
@@ -533,7 +514,7 @@ export const MultipleMonths: Story = {
         <div className="w-64">
           <RangeCalendar.Header>
             <div className="size-6" />
-            <RangeCalendarMonthHeading offset={1} />
+            <RangeCalendar.Heading offset={{months: 1}} />
             <RangeCalendar.NavButton slot="next" />
           </RangeCalendar.Header>
           <RangeCalendar.Grid offset={{months: 1}}>
@@ -558,12 +539,11 @@ export const ThreeMonths: Story = {
       className="@container-normal w-auto overflow-x-auto"
       visibleDuration={{months: 3}}
     >
-      <RangeCalendar.Heading className="sr-only" />
       <div className="flex w-max gap-7">
         <div className="w-64">
           <RangeCalendar.Header>
             <RangeCalendar.NavButton slot="previous" />
-            <RangeCalendarMonthHeading offset={0} />
+            <RangeCalendar.Heading />
             <div className="size-6" />
           </RangeCalendar.Header>
           <RangeCalendar.Grid>
@@ -578,7 +558,7 @@ export const ThreeMonths: Story = {
         <div className="w-64">
           <RangeCalendar.Header>
             <div className="size-6" />
-            <RangeCalendarMonthHeading offset={1} />
+            <RangeCalendar.Heading offset={{months: 1}} />
             <div className="size-6" />
           </RangeCalendar.Header>
           <RangeCalendar.Grid offset={{months: 1}}>
@@ -593,7 +573,7 @@ export const ThreeMonths: Story = {
         <div className="w-64">
           <RangeCalendar.Header>
             <div className="size-6" />
-            <RangeCalendarMonthHeading offset={2} />
+            <RangeCalendar.Heading offset={{months: 2}} />
             <RangeCalendar.NavButton slot="next" />
           </RangeCalendar.Header>
           <RangeCalendar.Grid offset={{months: 2}}>

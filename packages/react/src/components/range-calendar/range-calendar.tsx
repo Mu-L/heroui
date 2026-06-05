@@ -11,7 +11,6 @@ import {CalendarDate, DateFormatter, createCalendar} from "@internationalized/da
 import {useControlledState} from "@react-stately/utils";
 import React, {createContext, useContext} from "react";
 import {Button as ButtonPrimitive} from "react-aria-components/Button";
-import {Heading as HeadingPrimitive} from "react-aria-components/Heading";
 import {useLocale} from "react-aria-components/I18nProvider";
 import {
   CalendarCell as CalendarCellPrimitive,
@@ -19,6 +18,7 @@ import {
   CalendarGridHeader as CalendarGridHeaderPrimitive,
   CalendarGrid as CalendarGridPrimitive,
   CalendarHeaderCell as CalendarHeaderCellPrimitive,
+  CalendarHeading as CalendarHeadingPrimitive,
   RangeCalendar as RangeCalendarPrimitive,
   RangeCalendarStateContext,
 } from "react-aria-components/RangeCalendar";
@@ -170,13 +170,15 @@ RangeCalendarHeader.displayName = "HeroUI.RangeCalendar.Header";
 /* -------------------------------------------------------------------------------------------------
 | * RangeCalendar Heading
 | * -----------------------------------------------------------------------------------------------*/
-interface RangeCalendarHeadingProps extends ComponentPropsWithRef<typeof HeadingPrimitive> {}
+interface RangeCalendarHeadingProps extends ComponentPropsWithRef<
+  typeof CalendarHeadingPrimitive
+> {}
 
 const RangeCalendarHeading = ({className, ...props}: RangeCalendarHeadingProps) => {
   const {slots} = useContext(RangeCalendarContext);
 
   return (
-    <HeadingPrimitive
+    <CalendarHeadingPrimitive
       data-slot="range-calendar-heading"
       {...props}
       className={composeSlotClassName(slots?.heading, className)}

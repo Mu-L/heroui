@@ -102,7 +102,7 @@ export default () => (
 
 ### 多个月份
 
-使用 `visibleDuration` 与 `offset` 渲染多个月份网格，适用于预订与规划场景。
+使用 `visibleDuration` 与 `offset` 渲染多个月份网格，适用于预订与规划场景。在各列头部为 `Calendar.Heading` 设置 `offset`（例如 `offset={{ months: 1 }}`）以显示对应月份标题。
 
 <ComponentPreview name="calendar-multiple-months" />
 
@@ -245,7 +245,7 @@ Calendar 继承 React Aria [Calendar](https://react-spectrum.adobe.com/react-ari
 | Component | 描述 |
 |-----------|------|
 | `Calendar.Header` | 导航与标题的头部容器。 |
-| `Calendar.Heading` | 当前月/年标题。 |
+| `Calendar.Heading` | 可见范围的格式化标题。支持 `offset`（多月份布局）与 `format`（月/年/日格式选项）。 |
 | `Calendar.NavButton` | 上一月/下一月导航控件（`slot="previous"` 或 `slot="next"`）。 |
 | `Calendar.Grid` | 单个月的日期网格（多月份布局支持 `offset`）。 |
 | `Calendar.GridHeader` | 星期标题容器。 |
