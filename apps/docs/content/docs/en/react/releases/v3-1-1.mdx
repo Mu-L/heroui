@@ -1,0 +1,73 @@
+---
+title: v3.1.1
+description: Global tooltip delay CSS variables for theme-level show and hide timing.
+github:
+  pull: 6617
+---
+
+<div className="flex items-center gap-3 mb-6">
+  <span className="text-sm text-muted">June 6, 2026</span>
+</div>
+
+Patch release: [Tooltip](/docs/components/tooltip) now reads default show and hide delays from theme CSS variables, so teams can tune tooltip timing globally without setting props on every instance.
+
+## Installation
+
+Update to the latest version:
+
+<Tabs items={["npm", "pnpm", "yarn", "bun"]}>
+  <Tab value="npm">
+    ```bash
+    npm i @heroui/styles@latest @heroui/react@latest
+    ```
+  </Tab>
+  <Tab value="pnpm">
+    ```bash
+    pnpm add @heroui/styles@latest @heroui/react@latest
+    ```
+  </Tab>
+  <Tab value="yarn">
+    ```bash
+    yarn add @heroui/styles@latest @heroui/react@latest
+    ```
+  </Tab>
+  <Tab value="bun">
+    ```bash
+    bun add @heroui/styles@latest @heroui/react@latest
+    ```
+  </Tab>
+</Tabs>
+
+<Callout type="info">
+  **Using AI assistants?** Simply prompt "Hey Cursor, update HeroUI to the latest version" and your AI assistant will automatically compare versions and apply the necessary changes. Learn more about the [HeroUI MCP Server](/docs/ui-for-agents/mcp-server).
+</Callout>
+
+## What's New
+
+### Tooltip Delay CSS Variables
+
+[Tooltip](/docs/components/tooltip) now supports global delay configuration through theme variables ([#6617](https://github.com/heroui-inc/heroui/pull/6617)):
+
+- `--tooltip-delay` — delay before showing a tooltip (default: `1500ms`)
+- `--tooltip-close-delay` — delay before hiding a tooltip (default: `500ms`)
+
+Override them globally:
+
+```css
+:root {
+  --tooltip-delay: 700ms;
+  --tooltip-close-delay: 0ms;
+}
+```
+
+Individual `delay` and `closeDelay` props still override these values on specific tooltips.
+
+<Callout type="warning">
+  **Behavior change:** When using the default HeroUI theme, tooltip delays now default to `1500ms` / `500ms` instead of the previous React Aria defaults of `700ms` / `0ms`. Set the CSS variables or props explicitly if you want to preserve the old timing.
+</Callout>
+
+## Links
+
+- [Tooltip Docs](/docs/components/tooltip)
+- [Theming Guide](/docs/react/getting-started/handbook/theming)
+- [GitHub PR #6617](https://github.com/heroui-inc/heroui/pull/6617)

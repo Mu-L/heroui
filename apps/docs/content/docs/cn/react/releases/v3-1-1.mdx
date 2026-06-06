@@ -1,0 +1,73 @@
+---
+title: v3.1.1
+description: 用于主题级 Tooltip 显示与隐藏时机的全局延迟 CSS 变量。
+github:
+  pull: 6617
+---
+
+<div className="flex items-center gap-3 mb-6">
+  <span className="text-sm text-muted">2026 年 6 月 6 日</span>
+</div>
+
+补丁版本：[Tooltip](/docs/components/tooltip) 现在会从主题 CSS 变量读取默认的显示与隐藏延迟，团队可以在全局调整 Tooltip 时机，而无需在每个实例上设置 props。
+
+## 安装
+
+升级到最新版本：
+
+<Tabs items={["npm", "pnpm", "yarn", "bun"]}>
+  <Tab value="npm">
+    ```bash
+    npm i @heroui/styles@latest @heroui/react@latest
+    ```
+  </Tab>
+  <Tab value="pnpm">
+    ```bash
+    pnpm add @heroui/styles@latest @heroui/react@latest
+    ```
+  </Tab>
+  <Tab value="yarn">
+    ```bash
+    yarn add @heroui/styles@latest @heroui/react@latest
+    ```
+  </Tab>
+  <Tab value="bun">
+    ```bash
+    bun add @heroui/styles@latest @heroui/react@latest
+    ```
+  </Tab>
+</Tabs>
+
+<Callout type="info">
+  **正在使用 AI 助手？** 只需对它说一句「Hey Cursor，把 HeroUI 升级到最新版本」，AI 助手就会自动对比版本并应用必要的变更。了解更多请参阅 [HeroUI MCP 服务器](/docs/ui-for-agents/mcp-server)。
+</Callout>
+
+## 新特性
+
+### Tooltip 延迟 CSS 变量
+
+[Tooltip](/docs/components/tooltip) 现在支持通过主题变量进行全局延迟配置 ([#6617](https://github.com/heroui-inc/heroui/pull/6617))：
+
+- `--tooltip-delay` — 显示 Tooltip 前的延迟（默认：`1500ms`）
+- `--tooltip-close-delay` — 隐藏 Tooltip 前的延迟（默认：`500ms`）
+
+全局覆盖示例：
+
+```css
+:root {
+  --tooltip-delay: 700ms;
+  --tooltip-close-delay: 0ms;
+}
+```
+
+单个 Tooltip 上的 `delay` 和 `closeDelay` 属性仍会覆盖这些值。
+
+<Callout type="warning">
+  **行为变更：** 使用默认 HeroUI 主题时，Tooltip 延迟现在默认为 `1500ms` / `500ms`，而不是之前的 React Aria 默认值 `700ms` / `0ms`。如需保留旧行为，请显式设置 CSS 变量或 props。
+</Callout>
+
+## 相关链接
+
+- [Tooltip 文档](/docs/components/tooltip)
+- [主题指南](/docs/react/getting-started/handbook/theming)
+- [GitHub PR #6617](https://github.com/heroui-inc/heroui/pull/6617)
