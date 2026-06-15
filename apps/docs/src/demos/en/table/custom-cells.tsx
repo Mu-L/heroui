@@ -2,7 +2,7 @@
 
 import type {Selection, SortDescriptor} from "@heroui/react";
 
-import {Avatar, Button, Checkbox, Chip, Table, cn} from "@heroui/react";
+import {Avatar, Button, Checkbox, Chip, Table} from "@heroui/react";
 import {Icon} from "@iconify/react";
 import {useMemo, useState} from "react";
 
@@ -64,29 +64,6 @@ const users: User[] = [
   },
 ];
 
-function SortableColumnHeader({
-  children,
-  sortDirection,
-}: {
-  children: React.ReactNode;
-  sortDirection?: "ascending" | "descending";
-}) {
-  return (
-    <span className="flex items-center justify-between">
-      {children}
-      {!!sortDirection && (
-        <Icon
-          icon="gravity-ui:chevron-up"
-          className={cn(
-            "size-3 transform transition-transform duration-100 ease-out",
-            sortDirection === "descending" ? "rotate-180" : "",
-          )}
-        />
-      )}
-    </span>
-  );
-}
-
 export function CustomCells() {
   const [selectedKeys, setSelectedKeys] = useState<Selection>(new Set());
   const [sortDescriptor, setSortDescriptor] = useState<SortDescriptor>({
@@ -124,29 +101,39 @@ export function CustomCells() {
           <Table.Header>
             <Table.Column className="pr-0">
               <Checkbox aria-label="Select all" slot="selection">
-                <Checkbox.Control>
-                  <Checkbox.Indicator />
-                </Checkbox.Control>
+                <Checkbox.Content>
+                  <Checkbox.Control>
+                    <Checkbox.Indicator />
+                  </Checkbox.Control>
+                </Checkbox.Content>
               </Checkbox>
             </Table.Column>
             <Table.Column allowsSorting isRowHeader className="after:hidden" id="id">
               {({sortDirection}) => (
-                <SortableColumnHeader sortDirection={sortDirection}>Worker ID</SortableColumnHeader>
+                <Table.SortableColumnHeader sortDirection={sortDirection}>
+                  Worker ID
+                </Table.SortableColumnHeader>
               )}
             </Table.Column>
             <Table.Column allowsSorting id="name">
               {({sortDirection}) => (
-                <SortableColumnHeader sortDirection={sortDirection}>Member</SortableColumnHeader>
+                <Table.SortableColumnHeader sortDirection={sortDirection}>
+                  Member
+                </Table.SortableColumnHeader>
               )}
             </Table.Column>
             <Table.Column allowsSorting id="role">
               {({sortDirection}) => (
-                <SortableColumnHeader sortDirection={sortDirection}>Role</SortableColumnHeader>
+                <Table.SortableColumnHeader sortDirection={sortDirection}>
+                  Role
+                </Table.SortableColumnHeader>
               )}
             </Table.Column>
             <Table.Column allowsSorting id="status">
               {({sortDirection}) => (
-                <SortableColumnHeader sortDirection={sortDirection}>Status</SortableColumnHeader>
+                <Table.SortableColumnHeader sortDirection={sortDirection}>
+                  Status
+                </Table.SortableColumnHeader>
               )}
             </Table.Column>
             <Table.Column className="text-end">Actions</Table.Column>
@@ -156,9 +143,11 @@ export function CustomCells() {
               <Table.Row key={user.id} id={user.id}>
                 <Table.Cell className="pr-0">
                   <Checkbox aria-label={`Select ${user.name}`} slot="selection" variant="secondary">
-                    <Checkbox.Control>
-                      <Checkbox.Indicator />
-                    </Checkbox.Control>
+                    <Checkbox.Content>
+                      <Checkbox.Control>
+                        <Checkbox.Indicator />
+                      </Checkbox.Control>
+                    </Checkbox.Content>
                   </Checkbox>
                 </Table.Cell>
                 <Table.Cell className="font-medium">
